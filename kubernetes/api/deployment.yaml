@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: node-tp
+spec:
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api
+          image: pierrelbg/node-tp:1.0
+          resources: {}
+          env:
+            - name: PORT
+              value: "3000"
+            - name: DB_HOST
+              value: "postgres"
+            - name: DB_USERNAME
+              value: "postgres"
+            - name: DB_PASSWORD
+              value: "postgres"
+            - name: DB_DATABASE
+              value: "postgres"
+            - name: DB_DAILECT
+              value: "postgres"
+            - name: DB_PORT
+              value: "5432"
+            - name: ACCESS_TOKEN_SECRET
+              value: "YOUR_SECRET_KEY"
+            - name: REFRESH_TOKEN_SECRET
+              value: "YOUR_SECRET_KEY"
+            - name: ACCESS_TOKEN_EXPIRY
+              value: "15m"
+            - name: REFRESH_TOKEN_EXPIRY
+              value: "7d"
+            - name: REFRESH_TOKEN_COOKIE_NAME
+              value: "jid"
+
+          ports:
+            - containerPort: 3000
