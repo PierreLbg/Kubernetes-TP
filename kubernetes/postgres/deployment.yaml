@@ -31,5 +31,5 @@ spec:
       volumes:
         - name: postgres-claim
           hostPath:
-            path: /home/pierre/data_mssql
+            path: /home/pierre/data_postgres
             type: DirectoryOrCreate

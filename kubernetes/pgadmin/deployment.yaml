@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+  namespace: node-tp
+spec:
+  replicas: 1
+  selector:
+   matchLabels:
+    app: pgadmin
+  template:
+    metadata:
+      labels:
+        app: pgadmin
+    spec:
+      containers:
+      - name: pgadmin
+        image: dpage/pgadmin4
+        ports:
+          - containerPort: 80
+        resources: {}
+        env:
+          - name: PGADMIN_DEFAULT_EMAIL
+            valueFrom:
+              configMapKeyRef:
+                name: pgadmin
+                key: PGADMIN_DEFAULT_EMAIL
+          - name: PGADMIN_DEFAULT_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: pgadmin
+                key: PGADMIN_DEFAULT_PASSWORD
+        volumeMounts:
+          - mountPath: /data/pgadmin
+            name: pgadmin
+      restartPolicy: Always
+      volumes:
+        - name: pgadmin
+          hostPath:
+            path: /home/pierre/data_pgadmin
+            type: DirectoryOrCreate
