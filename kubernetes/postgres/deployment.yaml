@@ -4,6 +4,7 @@ metadata:
   name: postgres
   namespace: node-tp
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: postgres
@@ -18,7 +19,10 @@ spec:
         resources: {}
         env:
           - name: POSTGRES_PASSWORD
-            value: "postgres"
+            valueFrom:
+              configMapKeyRef:
+                name: postgres
+                key: POSTGRES_PASSWORD
         ports:
         - containerPort: 5432
         volumeMounts:

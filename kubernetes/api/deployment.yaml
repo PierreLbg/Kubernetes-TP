@@ -18,29 +18,65 @@ spec:
           resources: {}
           env:
             - name: PORT
-              value: "3000"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: PORT
             - name: DB_HOST
-              value: "postgres"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: DB_HOST
             - name: DB_USERNAME
-              value: "postgres"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: DB_USERNAME
             - name: DB_PASSWORD
-              value: "postgres"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: DB_PASSWORD
             - name: DB_DATABASE
-              value: "postgres"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: DB_DATABASE
             - name: DB_DAILECT
-              value: "postgres"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: DB_DAILECT
             - name: DB_PORT
-              value: "5432"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: DB_PORT
             - name: ACCESS_TOKEN_SECRET
-              value: "YOUR_SECRET_KEY"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: ACCESS_TOKEN_SECRET
             - name: REFRESH_TOKEN_SECRET
-              value: "YOUR_SECRET_KEY"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: REFRESH_TOKEN_SECRET
             - name: ACCESS_TOKEN_EXPIRY
-              value: "15m"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: ACCESS_TOKEN_EXPIRY
             - name: REFRESH_TOKEN_EXPIRY
-              value: "7d"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: REFRESH_TOKEN_EXPIRY
             - name: REFRESH_TOKEN_COOKIE_NAME
-              value: "jid"
+              valueFrom:
+                configMapKeyRef:
+                  name: api
+                  key: REFRESH_TOKEN_COOKIE_NAME
 
           ports:
             - containerPort: 3000

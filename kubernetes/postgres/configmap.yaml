@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres
+  namespace: node-tp
+data:
+  POSTGRES_PASSWORD: postgres
