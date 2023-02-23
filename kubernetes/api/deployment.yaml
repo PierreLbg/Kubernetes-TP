@@ -29,12 +29,12 @@ spec:
                   key: DB_HOST
             - name: DB_USERNAME
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: api
                   key: DB_USERNAME
             - name: DB_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: api
                   key: DB_PASSWORD
             - name: DB_DATABASE
@@ -54,12 +54,12 @@ spec:
                   key: DB_PORT
             - name: ACCESS_TOKEN_SECRET
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: api
                   key: ACCESS_TOKEN_SECRET
             - name: REFRESH_TOKEN_SECRET
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: api
                   key: REFRESH_TOKEN_SECRET
             - name: ACCESS_TOKEN_EXPIRY

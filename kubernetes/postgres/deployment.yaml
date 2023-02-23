@@ -20,7 +20,7 @@ spec:
         env:
           - name: POSTGRES_PASSWORD
             valueFrom:
-              configMapKeyRef:
+              secretKeyRef:
                 name: postgres
                 key: POSTGRES_PASSWORD
         ports:

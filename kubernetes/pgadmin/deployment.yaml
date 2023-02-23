@@ -27,7 +27,7 @@ spec:
                 key: PGADMIN_DEFAULT_EMAIL
           - name: PGADMIN_DEFAULT_PASSWORD
             valueFrom:
-              configMapKeyRef:
+              secretKeyRef:
                 name: pgadmin
                 key: PGADMIN_DEFAULT_PASSWORD
         volumeMounts:
