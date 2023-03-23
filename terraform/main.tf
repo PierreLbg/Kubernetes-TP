@@ -29,7 +29,7 @@ resource "azurerm_postgresql_server" "pgs-srv" {
   administrator_login          = data.azurerm_key_vault_secret.database-login.value
   administrator_login_password = data.azurerm_key_vault_secret.database-password.value
   version                      = "9.5"
-  ssl_enforcement_enabled      = true
+  ssl_enforcement_enabled      = false
 }
 
 resource "azurerm_postgresql_firewall_rule" "pgs-srv" {
@@ -40,10 +40,28 @@ resource "azurerm_postgresql_firewall_rule" "pgs-srv" {
   end_ip_address      = "0.0.0.0"
 }
 
-resource "azurerm_postgresql_database" "example" {
-  name                = "TpTerraform"
+resource "azurerm_container_group" "pgadmin" {
+  name                = "aci-pgadmin-${var.project_name}${var.environment_suffix}"
   resource_group_name = data.azurerm_resource_group.rg-plebigre.name
-  server_name         = azurerm_postgresql_server.pgs-srv.name
-  charset             = "UTF8"
-  collation           = "English_United States.1252"
+  location            = data.azurerm_resource_group.rg-plebigre.location
+  ip_address_type     = "Public"
+  dns_name_label      = "aci-pgadmin-${var.project_name}${var.environment_suffix}"
+  os_type             = "Linux"
+
+  container {
+    name   = "pgadmin"
+    image  = "dpage/pgadmin4"
+    cpu    = "0.5"
+    memory = "1.5"
+
+    ports {
+      port     = 80
+      protocol = "TCP"
+    }
+
+    environment_variables = {
+      "PGADMIN_DEFAULT_EMAIL" = data.azurerm_key_vault_secret.pgadmin-login.value,
+      "PGADMIN_DEFAULT_PASSWORD" = data.azurerm_key_vault_secret.pgadmin-password.value
+    }
+  }
 }
